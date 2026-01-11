@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1433220039462812245}
   - component: {fileID: 510340034169406517}
   - component: {fileID: 2754221316117603754}
+  - component: {fileID: 4824491308351472970}
   m_Layer: 0
   m_Name: Unit
   m_TagString: Untagged
@@ -58,6 +59,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 2754221316117603754}
+  - {fileID: 4824491308351472970}
   SimulationBehaviours: []
 --- !u!54 &510340034169406517
 Rigidbody:
@@ -116,6 +118,23 @@ MonoBehaviour:
     RotTeleportRadians: 1.5
   UseLegacySharedModeInterpolation: 0
   TargetInterpolationDelay: 0.03
+--- !u!114 &4824491308351472970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957898070134141394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593e945fc804ef84aa664ff8e5f81a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitMovement
+  WordOffset: 0
+  WordCount: 0
+  _interpolationDataSource: 0
+  moveSpeed: 5
+  arriveDistance: 0.1
 --- !u!1 &4403200742317630446
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,7 +205,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f8bf0e57089d282458ba429d957b4d8b, type: 2}
+  - {fileID: 2100000, guid: c75416e74073aa248aec02cf7e58583d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

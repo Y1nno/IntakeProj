@@ -1,14 +1,22 @@
 using Fusion;
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.InputSystem;
 
 public class SimpleClickToMove : NetworkBehaviour
 {
     private Camera mainCamera;
     private LayerMask groundMask;
 
+    private InputAction selectAction;
+
     public List<UnitMovement> ownedUnits = new List<UnitMovement>();
 
+    private void Start()
+    {
+        selectAction = InputSystem.actions.FindAction("Select");
+    }
+    
     public override void Spawned()
     {
         if (Object.HasInputAuthority)
@@ -23,12 +31,14 @@ public class SimpleClickToMove : NetworkBehaviour
         if (!Object.HasInputAuthority) return;
         if (ownedUnits.Count == 0) return;
 
-        if (Input.GetMouseButtonDown(1))
+        if (selectAction.WasPerformedThisFrame())
         {
-            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out RaycastHit hit, 500f, groundMask))
             {
                 UnitMovement unit = ownedUnits[0];
+                if (unit == null || unit.Object == null) return;
+                if (unit.Object.InputAuthority != Object.InputAuthority) return;
                 RPC_RequestMove(unit.Object, hit.point);
             }
         }
@@ -43,5 +53,7 @@ public class SimpleClickToMove : NetworkBehaviour
         if (unit == null) return;
 
         if (unitObj.InputAuthority != Object.InputAuthority) return;
+
+        unit.RPC_RequestMove(target);
     }
 }

@@ -16,6 +16,21 @@ public class UnitMovement : NetworkBehaviour
             TargetPos = transform.position;
             HasTarget = false;
         }
+
+        var localPlayer = NetworkPlayer.Local;
+        if (localPlayer != null && Object.InputAuthority == localPlayer.Object.InputAuthority)
+        {
+            localPlayer.RegisterOwnedUnit(this);
+        }
+    }
+
+    public override void Despawned(NetworkRunner runner, bool hasState)
+    {
+        var localPlayer = NetworkPlayer.Local;
+        if (localPlayer != null && Object.InputAuthority == localPlayer.Object.InputAuthority)
+        {
+            localPlayer.UnregisterOwnedUnit(this);
+        }
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]

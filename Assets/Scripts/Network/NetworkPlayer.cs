@@ -34,4 +34,27 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         }
         Debug.Log("Player left: " + player);
     }
+
+    public void RegisterOwnedUnit(UnitMovement unit)
+    {
+        if (unit == null) return;
+
+        var clickToMove = GetComponent<SimpleClickToMove>();
+        if (clickToMove == null) return;
+
+        if (!clickToMove.ownedUnits.Contains(unit))
+        {
+            clickToMove.ownedUnits.Add(unit);
+        }
+    }
+
+    public void UnregisterOwnedUnit(UnitMovement unit)
+    {
+        if (unit == null) return;
+
+        var clickToMove = GetComponent<SimpleClickToMove>();
+        if (clickToMove == null) return;
+
+        clickToMove.ownedUnits.Remove(unit);
+    }
 }
