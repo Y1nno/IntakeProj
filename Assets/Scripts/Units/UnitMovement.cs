@@ -11,6 +11,8 @@ public class UnitMovement : NetworkBehaviour
 
     public float movingThisStep = 0f;
 
+    private Rigidbody cachedRigidbody;
+
     public override void Spawned()
     {
         if (Object.HasStateAuthority)
@@ -23,6 +25,11 @@ public class UnitMovement : NetworkBehaviour
         if (localPlayer != null && Object.InputAuthority == localPlayer.Object.InputAuthority)
         {
             localPlayer.RegisterOwnedUnit(this);
+        }
+
+        if (cachedRigidbody == null)
+        {
+            cachedRigidbody = GetComponent<Rigidbody>();
         }
     }
 
@@ -55,6 +62,12 @@ public class UnitMovement : NetworkBehaviour
         {
             transform.position = TargetPos;
             HasTarget = false;
+            movingThisStep = 0f;
+            if (cachedRigidbody != null)
+            {
+                cachedRigidbody.linearVelocity = Vector3.zero;
+                cachedRigidbody.angularVelocity = Vector3.zero;
+            }
             return;
         }
 
