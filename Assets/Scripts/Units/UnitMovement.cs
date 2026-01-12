@@ -4,10 +4,12 @@ using UnityEngine;
 public class UnitMovement : NetworkBehaviour
 {
     public Vector3 TargetPos { get; private set; }
-    public bool HasTarget { get; private set; }
+    public bool HasTarget;
 
     public float moveSpeed = 5f;
-    public float arriveDistance = 0.1f;
+    public float arriveDistance = 1f;
+
+    public float movingThisStep = 0f;
 
     public override void Spawned()
     {
@@ -58,6 +60,8 @@ public class UnitMovement : NetworkBehaviour
 
         Vector3 dir = to / dist;
         float step = moveSpeed * Runner.DeltaTime;
+
+        movingThisStep = step;
 
         transform.position = pos + dir * Mathf.Min(step, dist);
     }

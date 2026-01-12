@@ -36,12 +36,30 @@ public class SimpleClickToMove : NetworkBehaviour
             Ray ray = mainCamera.ScreenPointToRay(Mouse.current.position.ReadValue());
             if (Physics.Raycast(ray, out RaycastHit hit, 500f, groundMask))
             {
-                UnitMovement unit = ownedUnits[0];
-                if (unit == null || unit.Object == null) return;
-                if (unit.Object.InputAuthority != Object.InputAuthority) return;
-                RPC_RequestMove(unit.Object, hit.point);
+                for (int i = ownedUnits.Count - 1; i >= 0; i--)
+                {
+                    UnitMovement unit = ownedUnits[i];
+                    if (unit == null || unit.Object == null)
+                    {
+                        ownedUnits.RemoveAt(i);
+                        continue;
+                    }
+
+                    if (unit.Object.InputAuthority != Object.InputAuthority) continue;
+                    
+                    RPC_RequestMove(unit.Object, FromRaycastToVector3(hit, unit));
+                }
+            }
+            else
+            {
+                Debug.Log("No ground hit detected.");
             }
         }
+    }
+
+    private Vector3 FromRaycastToVector3(RaycastHit hit, UnitMovement unit)
+    {
+        return new Vector3(hit.point.x, unit.transform.position.y, hit.point.z);
     }
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
