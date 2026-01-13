@@ -15,6 +15,7 @@ public class NetworkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
     NetworkRunner networkRunner;
     bool isStarting;
     bool hasStarted;
+    bool hasAutoStarted;
 
     SessionLobby sessionLobby = SessionLobby.Shared;
 
@@ -95,11 +96,12 @@ public class NetworkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
     {
-        if (hasStarted || isStarting)
+         if (hasAutoStarted || hasStarted || isStarting)
         {
             return;
         }
 
+        hasAutoStarted = true;
         var hasSession = sessionList.Any(session => session.Name == "Test");
         if (hasSession)
         {

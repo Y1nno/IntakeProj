@@ -15,10 +15,16 @@ public class SimpleClickToMove : NetworkBehaviour
     private void Start()
     {
         selectAction = InputSystem.actions.FindAction("Select");
+        Debug.Log("Select action found: " + (selectAction != null));
+        Debug.Log("Camera assigned: " + (mainCamera != null));
     }
     
     public override void Spawned()
     {
+        if (selectAction == null)
+        {
+            selectAction = InputSystem.actions.FindAction("Select");
+        }
         if (Object.HasInputAuthority)
         {
             if (mainCamera == null) mainCamera = Camera.main;

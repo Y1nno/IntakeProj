@@ -144,7 +144,6 @@ GameObject:
   - component: {fileID: 697589295955879715}
   - component: {fileID: 3021318643343356832}
   - component: {fileID: 770902699976382772}
-  - component: {fileID: 4270840884726484550}
   m_Layer: 0
   m_Name: Network Player PF
   m_TagString: Untagged
@@ -209,7 +208,6 @@ MonoBehaviour:
   - {fileID: 6287113010316964946}
   - {fileID: 697589295955879715}
   - {fileID: 770902699976382772}
-  - {fileID: 4270840884726484550}
   SimulationBehaviours: []
 --- !u!143 &3879546998585034008
 CharacterController:
@@ -302,22 +300,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterInputHandler
 --- !u!114 &770902699976382772
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4117923382496495031}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2fac89425479fa44699fd3c22a34d64e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SimpleClickToMove
-  WordOffset: 0
-  WordCount: 0
-  _interpolationDataSource: 0
-  ownedUnits: []
---- !u!114 &4270840884726484550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
