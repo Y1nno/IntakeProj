@@ -10,6 +10,8 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
     public NetworkPlayer playerPrefab;
     public NetworkObject unitPrefab;
 
+    //private int factionNumber = 0;
+
     CharacterInputHandler inputHandler;
     
     void Start()
@@ -18,29 +20,34 @@ public class Spawner : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
-{
-    if (!runner.IsServer)
-        return;
-
-    Debug.Log("Spawning player for: " + player);
-    runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, player);
-
-    float spawnRadius = 5f;
-    Vector3 basePosition = Vector3.zero;
-
-    for (int i = 0; i < 5; i++)
     {
-        Vector3 pos = basePosition + new Vector3(
-            UnityEngine.Random.Range(-spawnRadius, spawnRadius),
-            -4.58f,
-            UnityEngine.Random.Range(-spawnRadius, spawnRadius)
-        );
+        if (!runner.IsServer)
+            {
+                return;
+            }
 
-        runner.Spawn(unitPrefab, pos, Quaternion.identity, player);
+        Debug.Log("Spawning player for: " + player);
+        runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity, player);
+
+        float spawnRadius = 5f;
+        Vector3 basePosition = Vector3.zero;
+
+        for (int i = 0; i < 5; i++)
+        {
+            Vector3 pos = basePosition + new Vector3(
+                UnityEngine.Random.Range(-spawnRadius, spawnRadius),
+                -4.58f,
+                UnityEngine.Random.Range(-spawnRadius, spawnRadius)
+            );
+
+            NetworkObject unit = runner.Spawn(unitPrefab, pos, Quaternion.identity, player);
+            //unit.gameObject.transform.GetChild(0).GetComponent<FactionManager>().SetFaction(factionNumber);
+        }
+
+        //factionNumber++;
+
+        Debug.Log("OnPlayerJoined: " + player);
     }
-
-    Debug.Log("OnPlayerJoined: " + player);
-}
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {

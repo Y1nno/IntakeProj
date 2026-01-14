@@ -7,6 +7,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
 {
     
     public static NetworkPlayer Local {get; set;}
+    public int PlayerID {get; set;}
     
     void Start()
     {
@@ -18,6 +19,7 @@ public class NetworkPlayer : NetworkBehaviour, IPlayerLeft
         if (Object.HasInputAuthority)
         {
             Local = this;
+            PlayerID = Object.InputAuthority.PlayerId;
             Debug.Log("Local player spawned: " + Object.InputAuthority);
         }
         else

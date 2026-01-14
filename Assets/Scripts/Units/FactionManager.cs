@@ -17,9 +17,9 @@ public class FactionManager : MonoBehaviour
         
     }
 
-    public void SetFactionID(int newFactionID)
+    public void SetFaction(int newFactionID)
     {
-        int factionID = newFactionID;
+        factionID = newFactionID;
         SetRendererColor();
     }
 

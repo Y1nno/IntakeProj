@@ -17,12 +17,36 @@ public class NetworkRunnerHandler : MonoBehaviour, INetworkRunnerCallbacks
     bool hasStarted;
     bool hasAutoStarted;
 
+    static NetworkRunnerHandler instance;
+
     SessionLobby sessionLobby = SessionLobby.Shared;
+
+    void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
     async void Start()
     {
-        networkRunner = Instantiate(networkRunnerPrefab);
-        networkRunner.name = "NetworkRunner";
+        if (instance != this)
+        {
+            return;
+        }
+
+        networkRunner = FindObjectOfType<NetworkRunner>();
+        if (networkRunner == null)
+        {
+            networkRunner = Instantiate(networkRunnerPrefab);
+            networkRunner.name = "NetworkRunner";
+        }
+
         networkRunner.ProvideInput = true;
         networkRunner.AddCallbacks(this);
 

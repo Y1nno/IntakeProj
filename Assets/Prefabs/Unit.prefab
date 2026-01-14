@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2754221316117603754}
   - component: {fileID: 4824491308351472970}
   - component: {fileID: 2164432695431876619}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Unit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 8338092238512847309}
   - component: {fileID: 2811058948775364484}
   - component: {fileID: 4802828893062167676}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -252,7 +252,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!136 &8338092238512847309
 CapsuleCollider:

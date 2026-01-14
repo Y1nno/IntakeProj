@@ -13,6 +13,8 @@ public class UnitMovement : NetworkBehaviour
 
     private Rigidbody cachedRigidbody;
 
+    private FactionManager factionManager;
+
     public override void Spawned()
     {
         if (Object.HasStateAuthority)
@@ -31,6 +33,9 @@ public class UnitMovement : NetworkBehaviour
         {
             cachedRigidbody = GetComponent<Rigidbody>();
         }
+        factionManager = GetComponentInChildren<FactionManager>();
+        factionManager.SetFaction(Object.InputAuthority);
+
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
